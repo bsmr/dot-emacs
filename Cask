@@ -34,7 +34,6 @@
 (depends-on "magit")
 (depends-on "powerline")
 (depends-on "neotree")
-(depends-on "slime-mode")
 
 ;;;; tonini
 ;;(depends-on "ert-runner")
