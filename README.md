@@ -14,4 +14,51 @@ The goals of my setup are to extend Emacs in the following ways:
 * SBCL support
 * VI support
 
+## Basic Setup
 
+### Dependencies
+
+#### Cask
+
+I use Cask for the Emacs setup. To install it, follow the Installation guide for Your platform, using the documentation at [Cask @ Read-The-Docs](http://cask.readthedocs.org/en/latest/guide/installation.html).
+
+On my system(s) I did these steps:
+
+```bash
+> cd /opt/emacs
+> git clone https://github.com/cask/cask.git
+> export PATH=/opt/emacs/cask/bin:$PATH
+> cd ~/.emacs.d
+> cask init
+```
+
+Lines added to `~/.emacs.d/init.el`:
+
+```elisp
+;;;; add cask to emacs
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
+```
+
+#### Add Erlang/OTP
+
+#### Add Elixir
+
+* elixir-mode
+* alchemist
+
+
+
+#### Add SBCL
+
+#### Add EVIL mode
+
+#### Add TeX/LaTeX
+
+
+
+
+
+## Link Collection
+
+TBD: Add and organize links

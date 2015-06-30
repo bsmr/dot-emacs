@@ -1,0 +1,7 @@
+;;; -*- coding: utf-8 -*-
+(("/home/ADESTIS/bm/.emacs.d/parts/customize-prt.el" . 1137)
+ ("/home/ADESTIS/bm/.emacs.d/parts/elixir-prt.el" . 297)
+ ("/home/ADESTIS/bm/.emacs.d/parts/sbcl-prt.el" . 276)
+ ("/home/ADESTIS/bm/.emacs.d/parts/package-prt.el" . 151)
+ ("/home/ADESTIS/bm/.emacs.d/parts/evil-prt.el" . 174)
+ ("/home/ADESTIS/bm/.emacs.d/parts/erlang-prt.el" . 170))
