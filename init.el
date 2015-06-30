@@ -1,5 +1,4 @@
 ;;;; ~/.emacs.d/init.el
-;;;; -*- mode: emacs-lisp; -*-
 
 ;;;; add other parts
 (add-to-list 'load-path (expand-file-name "parts" user-emacs-directory))

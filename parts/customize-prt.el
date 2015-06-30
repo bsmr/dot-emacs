@@ -9,9 +9,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t)
  '(column-number-mode t)
  '(mode-require-final-newline nil)
- '(display-battery-mode t)
+ ;;'(display-battery-mode t)
  '(display-time-24hr-format t)
  '(display-time-day-and-date nil)
  '(display-time-default-load-average nil)
@@ -23,7 +24,7 @@
  '(scroll-bar-mode (quote right))
  '(show-paren-mode t)
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
-  '(uniquify-buffer-name-style (quote forward) nil (uniquify)))
+ '(uniquify-buffer-name-style (quote forward) nil (uniquify)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
