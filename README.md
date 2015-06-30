@@ -1,4 +1,4 @@
-# .emacs
+# dot-emacs
 
 My `.emacs` configuration. Actually `.emacs` is wrong, because everything is in `.emacs.d` directory now, starting with `.emacs.d\init.el`.
 
@@ -15,6 +15,34 @@ The goals of my setup are to extend Emacs in the following ways:
 * VI support
 
 ## Basic Setup
+
+### File Layout
+
+```
+~/.emacs.d
+|-- auto-save-list
+|-- Cask
+|-- .cask
+|-- .git
+|   |-- branches
+|   |-- [...]
+|   `-- refs
+|-- .gitignore
+|-- init.el
+|-- parts
+|   |-- cask-prt.el
+|   |-- company-prt.el
+|   |-- customize-prt.el
+|   |-- elixir-prt.el
+|   |-- email-prt.el
+|   |-- enterprise-prt.el
+|   |-- erlang-prt.el
+|   |-- evil-prt.el
+|   |-- package-prt.el
+|   `-- sbcl-prt.el
+|-- places
+`-- README.md
+```
 
 ### Dependencies
 
