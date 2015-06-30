@@ -2,7 +2,7 @@
 ;;;; cask setup
 
 (let ((emacs-mode-cask-directory (getenv "CASK_BASE_DIRECTORY")))
-  (if emacs-mode-cask-directory
+  (if (file-exists-p emacs-mode-cask-directory)
       (progn
 	(add-to-list 'load-path emacs-mode-cask-directory)
 	(require 'cask)
