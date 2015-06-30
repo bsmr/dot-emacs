@@ -2,11 +2,17 @@
 
 ;;; The SBCL binary and command-line arguments
 
-(add-to-list 'load-path "/opt/emacs/src/slime")
-(setq inferior-lisp-program "/opt/lisp/sbcl/active/bin/sbcl --noinform")
-(setq slime-contribs '(slime-fancy)) ; almost everything
-(require 'slime)
-(message "sbcl setup done")
+(let ((emacs-mode-slime-directory "/opt/emacs/src/slime")
+      (sbcl-exec-binary           "/opt/lisp/sbcl/active/bin/sbcl"))
+  (if (and (file-exists-p emacs-mode-slime-directory)
+	   (file-exists-p sbcl-exec-binary))
+      (progn
+	(add-to-list 'load-path emacs-mode-slime-directory)
+	(setq inferior-lisp-program "/opt/lisp/sbcl/active/bin/sbcl --noinform")
+	(setq slime-contribs '(slime-fancy))
+	(require 'slime)
+	(message "sbcl and slime setup done"))
+    (message "sbcl and slime setup failed")))
 
 (provide 'sbcl-prt)
 ;;;; end of file
