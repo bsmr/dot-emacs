@@ -1,6 +1,6 @@
 ;;; -*- coding: utf-8 -*-
-(("/home/FAMILY/bsmr/.emacs.d/init.el" . 25)
- ("/home/FAMILY/bsmr/.emacs.d/parts/cask-prt.el" . 323)
+(("/home/FAMILY/bsmr/.emacs.d/parts/cask-prt.el" . 147)
+ ("/home/FAMILY/bsmr/.emacs.d/init.el" . 25)
  ("/home/FAMILY/bsmr/.emacs.d/parts/company-prt.el" . 365)
  ("/home/FAMILY/bsmr/.emacs.d/parts/customize-prt.el" . 528)
  ("/home/FAMILY/bsmr/.emacs.d/parts/email-prt.el" . 323)
