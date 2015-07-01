@@ -31,7 +31,7 @@ export ERLANG_EXEC_PATH="${ERLANG_ROOT_DIRECTORY}/bin"
 export ELIXIR_ROOT_DIRECTORY="/opt/erlang/elixir"
 export ELIXIR_EXEC_PATH="${ELIXIR_ROOT_DIRECTORY}/bin"
 export ERLANG_EMACS_DIRECTORY="${ERLANG_ROOT_DIRECTORY}/lib/erlang/lib/tools-2.8/emacs"
-# > git clone https://github.com/cask/cask.git $HOME/.cask
+# > git clone https://github.com/cask/cask.git
 export CASK_BASE_DIRECTORY="/opt/emacs/src/cask"
 # > git clone https://github.com/elixir-lang/emacs-elixir.git
 export EMACS_MODE_ELIXIR_DIRECTORY="/opt/emacs/src/emacs-elixir"
@@ -55,9 +55,6 @@ export EMACS_MODE_COMPANY_DIRECTORY="/opt/emacs/src/company-mode"
 |-- Cask
 |-- .cask
 |-- .git
-|   |-- branches
-|   |-- [...]
-|   `-- refs
 |-- .gitignore
 |-- init.el
 |-- parts
