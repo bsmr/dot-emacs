@@ -14,6 +14,7 @@
 	(add-to-list 'load-path emacs-mode-elixir-directory)
 	(add-to-list 'load-path emacs-mode-alchemist-directory)
 	(setq exec-path (cons elixir-exec-path exec-path))
+
 	(require 'elixir-mode)
 	(require 'alchemist)
 

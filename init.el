@@ -9,6 +9,7 @@
 (require 'erlang-prt)
 (require 'elixir-prt)
 (require 'sbcl-prt)
+(require 'gitlab-prt)
 (require 'evil-prt)
 (require 'company-prt)
 (require 'customize-prt)
