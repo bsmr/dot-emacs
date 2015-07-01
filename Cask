@@ -33,6 +33,7 @@
 (depends-on "ido-vertical-mode")
 (depends-on "magit")
 (depends-on "powerline")
+(depends-on "minimap")
 (depends-on "neotree")
 
 ;;;; tonini
