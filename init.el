@@ -12,6 +12,7 @@
 (require 'gitlab-prt)
 (require 'evil-prt)
 (require 'company-prt)
+(require 'neotree-prt)
 (require 'customize-prt)
 
 (provide 'init)
