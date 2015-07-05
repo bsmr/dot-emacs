@@ -73,6 +73,7 @@
 ;;(depends-on "sass-mode")
 ;;(depends-on "saveplace")
 ;;(depends-on "shut-up")
+(depends-on "slime")
 (depends-on "smartparens")
 (depends-on "smex")
 ;;(depends-on "smooth-scrolling")
