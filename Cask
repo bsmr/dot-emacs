@@ -27,6 +27,7 @@
 (depends-on "yasnippet")
 
 ;;;; bsmr
+(depends-on "company")
 (depends-on "flx")
 (depends-on "flx-ido")
 (depends-on "ido-ubiquitous")
