@@ -2,7 +2,7 @@
 (source melpa)
 
 ;;(depends-on "ag")
-(depends-on "alchemist")
+(depends-on "alchemist")	;; minor mode
 ;;(depends-on "bind-key")
 (depends-on "cask")
 ;;(depends-on "coffee-mode")
@@ -12,7 +12,7 @@
 ;;(depends-on "dash")
 ;;(depends-on "drag-stuff")
 ;;(depends-on "elisp-slime-nav")
-;;(depends-on "elixir-mode")
+(depends-on "elixir-mode")	;; major mode
 ;;(depends-on "epl")
 ;;(depends-on "erlang")
 ;;(depends-on "ert-runner")

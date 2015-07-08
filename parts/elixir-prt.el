@@ -6,20 +6,34 @@
       (erlang-source-directory        (getenv "ERLANG_SOURCE_DIRECTORY"))
       (elixir-source-directory        (getenv "ELIXIR_SOURCE_DIRECTORY"))
       (elixir-exec-path               (getenv "ELIXIR_EXEC_PATH")))
-  (if (and (file-exists-p emacs-mode-elixir-directory)
-	   (file-exists-p emacs-mode-alchemist-directory)
-	   (file-exists-p erlang-source-directory)
-	   (file-exists-p elixir-source-directory))
+  ;; add elixir-mode from git
+  (if (and (not (package-installed-p 'elixir-mode))
+	   (file-exists-p emacs-mode-elixir-directory))
       (progn
 	(add-to-list 'load-path emacs-mode-elixir-directory)
-	(add-to-list 'load-path emacs-mode-alchemist-directory)
-	(setq exec-path (cons elixir-exec-path exec-path))
-
 	(require 'elixir-mode)
+	(message "elixir-mode from git added")))
+  ;; add alchemist from git
+  (if (and (not (package-installed-p 'alchemist))
+	   (file-exists-p emacs-mode-alchemist-directory))
+      (progn
+	(add-to-list 'load-path emacs-mode-alchemist-directory)
 	(require 'alchemist)
-
-	(setq alchemist-goto-erlang-source-dir erlang-source-directory)
-	(setq alchemist-goto-elixir-source-dir elixir-source-directory)
+	(message "alchemist from git added")))
+  ;; modifications for elixir-mode
+  (if (package-installed-p 'elixir-mode)
+      (progn
+	(setq exec-path (cons elixir-exec-path exec-path))
+	(message "elixir modifications done")))
+  ;; modifications for alchemist
+  (if (package-installed-p 'alchemist)
+      (progn
+	(if (file-exists-p erlang-source-directory)
+	    (setq alchemist-goto-erlang-source-dir erlang-source-directory)
+	  (message "Cannot find erlang source directory!"))
+	(if (file-exists-p elixir-source-directory)
+	    (setq alchemist-goto-elixir-source-dir elixir-source-directory)
+	  (message "Cannot find elixir source directory!"))
 	
 	(eval-after-load 'smartparens
 	  '(progn
@@ -46,8 +60,7 @@
 	
 	(add-hook 'elixir-mode-hook  't-elixir-mode-hook)
 	(add-hook 'erlang-mode-hook 't-erlang-mode-hook)
-	(message "elixir setup done"))
-    (message "elixir setup failed")))
+	(message "alchemist modifications done"))))
 
 (provide 'elixir-prt)
 ;;;; end of file
