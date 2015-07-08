@@ -2,6 +2,7 @@
 (source melpa)
 
 ;;(depends-on "ag")
+(depends-on "alchemist")
 ;;(depends-on "bind-key")
 (depends-on "cask")
 ;;(depends-on "coffee-mode")
@@ -73,6 +74,7 @@
 ;;(depends-on "s")
 ;;(depends-on "sass-mode")
 ;;(depends-on "saveplace")
+(depends-on "shell-command")
 ;;(depends-on "shut-up")
 (depends-on "slime")
 (depends-on "smartparens")
