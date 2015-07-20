@@ -65,9 +65,9 @@ export EMACS_MODE_COMPANY_DIRECTORY="/opt/emacs/src/company-mode"
 `-- README.md
 ```
 
-### Dependencies
+## Dependencies and Packages
 
-#### Cask
+### Cask
 
 I use Cask for the Emacs setup. To install it, follow the Installation guide for Your platform, using the documentation at [Cask @ Read-The-Docs](http://cask.readthedocs.org/en/latest/guide/installation.html).
 
@@ -76,24 +76,63 @@ On my system(s) I did these steps:
 ```bash
 > cd /opt/emacs/src
 > git clone https://github.com/cask/cask.git
-> export PATH=/opt/emacs/cask/bin:$PATH
+> export PATH=/opt/emacs/src/cask/bin:$PATH
 > cd ~/.emacs.d
 > cask init
 ```
 
-#### Add Erlang/OTP
+## Packages
 
-#### Add Elixir
+The list of packages installed with a short explantion why they are used.
 
-* elixir-mode
-* alchemist
+### CompanyMode
 
-#### Add SBCL
+* [CompanyMode @ EmacsWiki](http://www.emacswiki.org/emacs/CompanyMode)
+* [CompanyMode @ Github](https://github.com/company-mode/company-mode)
 
-#### Add EVIL mode
+### Flycheck
 
-#### Add TeX/LaTeX
+* [Flycheck @ EmacsWiki](http://www.emacswiki.org/emacs/Flycheck)
+* [Flycheck @ Github](https://github.com/flycheck/flycheck)
 
-## Link Collection
+### Magit
 
-TBD: Add and organize links
+* [Magit @ EmacsWiki](http://www.emacswiki.org/emacs/Magit)
+* [Magit @ Github](https://github.com/magit/magit)
+
+### NeoTree
+
+* [NeoTree @ EmacsWiki](http://www.emacswiki.org/emacs/NeoTree)
+* [NeoTree @ Github](https://github.com/jaypei/emacs-neotree)
+
+### Projectile
+
+* [Projectile @ EmacsWiki](http://www.emacswiki.org/emacs/Projectile)
+* [Projectile @ Github](https://github.com/bbatsov/projectile)
+
+### Smartparens
+
+* [Smartparens @ EmacsWiki](http://www.emacswiki.org/emacs/AutoPairs)
+* [Smartparens @ Github](https://github.com/Fuco1/smartparens)
+
+### EVIL mode
+
+* [EVIL @ EmacsWiki](http://www.emacswiki.org/emacs/Evil)
+* [EVIL @ Bitbucket](https://bitbucket.org/lyro/evil/wiki/Home)
+
+## Programming and Markup Languages
+
+### Erlang/OTP
+
+* erlang
+
+### Elixir
+
+* elixir-mode (Elixir, major-mode)
+* alchemist (Elixir, minor-mode)
+
+### YAML
+
+### SBCL
+
+### TeX/LaTeX
