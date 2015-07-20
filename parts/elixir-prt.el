@@ -10,7 +10,7 @@
       (add-to-list 'load-path emacs-mode-elixir-directory)
       (message "added elixir-mode source directory"))))
 
-(unless (package-installed-p 'alchmist)
+(unless (package-installed-p 'alchemist)
   (let ((emacs-mode-alchemist-directory (getenv "EMACS_MODE_ALCHEMIST_DIRECTORY")))
     (when (file-exists-p emacs-mode-alchemist-directory)
       (add-to-list 'load-path emacs-mode-alchemist-directory)
@@ -23,7 +23,7 @@
   (let ((elixir-exec-path (getenv "ELIXIR_EXEC_PATH")))
     (when (file-exists-p elixir-exec-path)
       (setq exec-path (cons elixir-exec-path exec-path))
-      (message "elixir modifications done"))))
+      (message "finished elixir modifications"))))
       
 (when (package-installed-p 'alchemist)
   (let ((erlang-source-directory (getenv "ERLANG_SOURCE_DIRECTORY"))
@@ -65,7 +65,7 @@
 	(add-hook 'erlang-mode-hook 'custom-erlang-mode-hook)
 	(message "added alchemist-erlang modifications"))
 
-      (message "alchemist modifications done"))))
+      (message "finished alchemist modifications"))))
 
 (provide 'elixir-prt)
 ;;;; end of file
