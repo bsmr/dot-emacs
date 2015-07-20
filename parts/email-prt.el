@@ -4,11 +4,9 @@
 ;;;;   bash> export USER_MAIL_ADDRESS="firstname.lastname@example.com"
 
 (let ((env-user-mail-address (getenv "USER_MAIL_ADDRESS")))
-  (if env-user-mail-address
-      (progn
-	(setq user-mail-address env-user-mail-address)
-	(message "user e-mail setup done"))
-    (message "user e-mail setup failed")))
+  (when env-user-mail-address
+    (setq user-mail-address env-user-mail-address)
+    (message "finished user e-mail setup")))
 
 (provide 'email-prt)
 ;;;; end of file

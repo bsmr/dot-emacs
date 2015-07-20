@@ -6,7 +6,7 @@
 (require 'email-prt)
 (require 'package-prt)
 (require 'cask-prt)
-(require 'shell-prt)
+;;(require 'shell-prt)
 (require 'erlang-prt)
 (require 'elixir-prt)
 (require 'sbcl-prt)
