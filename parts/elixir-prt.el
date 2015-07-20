@@ -1,5 +1,8 @@
 ;;;; elixir-prt.el
 ;;;; setup Elixir environment
+;;;; Github:
+;;;;  - elixir-mode: https://github.com/elixir-lang/emacs-elixir
+;;;;  - alchemist  : https://github.com/tonini/alchemist.el
 
 (let ((emacs-mode-elixir-directory    (getenv "EMACS_MODE_ELIXIR_DIRECTORY"))
       (emacs-mode-alchemist-directory (getenv "EMACS_MODE_ALCHEMIST_DIRECTORY"))
@@ -31,31 +34,32 @@
 	(setq alchemist-goto-elixir-source-dir elixir-source-directory)
       (message "Cannot find elixir source directory!"))
     
-    (eval-after-load 'smartparens
-      '(progn
-	 (defun my-elixir-do-end-close-action (id action context)
-	   (when (eq action 'insert)
-	     (newline-and-indent)
-	     (previous-line)
-	     (indent-according-to-mode)))
+    ;; (eval-after-load 'smartparens
+    ;;   '(progn
+    ;; 	 (defun my-elixir-do-end-close-action (id action context)
+    ;; 	   (when (eq action 'insert)
+    ;; 	     (newline-and-indent)
+    ;; 	     (previous-line)
+    ;; 	     (indent-according-to-mode)))
 	 
-	 (sp-with-modes '(elixir-mode)
-			(sp-local-pair "do" "end"
-				       :when '(("SPC" "RET"))
-				       :post-handlers '(:add my-elixir-do-end-close-action)
-				       :actions '(insert)))))
+    ;; 	 (sp-with-modes '(elixir-mode)
+    ;; 			(sp-local-pair "do" "end"
+    ;; 				       :when '(("SPC" "RET"))
+    ;; 				       :post-handlers '(:add my-elixir-do-end-close-action)
+    ;; 				       :actions '(insert)))))
     
-    (defun t-elixir-mode-hook ()
-      (yas/minor-mode +1)
-      (smartparens-mode +1)
-      (tester-init-test-run #'alchemist-mix-test-file "_test.exs$")
-      (tester-init-test-suite-run #'alchemist-mix-test))
+    ;; (defun t-elixir-mode-hook ()
+    ;;   (yas/minor-mode +1)
+    ;;   (smartparens-mode +1)
+    ;;   (tester-init-test-run #'alchemist-mix-test-file "_test.exs$")
+    ;;   (tester-init-test-suite-run #'alchemist-mix-test))
     
-    (defun t-erlang-mode-hook ()
-      (define-key erlang-mode-map (kbd "M-,") 'alchemist-goto-jump-back))
+    ;; (defun t-erlang-mode-hook ()
+    ;;   (define-key erlang-mode-map (kbd "M-,") 'alchemist-goto-jump-back))
     
-    (add-hook 'elixir-mode-hook  't-elixir-mode-hook)
-    (add-hook 'erlang-mode-hook 't-erlang-mode-hook)
+    ;; (add-hook 'elixir-mode-hook  't-elixir-mode-hook)
+    ;; (add-hook 'erlang-mode-hook 't-erlang-mode-hook)
+
     (message "alchemist modifications done")))
 
 (provide 'elixir-prt)
