@@ -9,7 +9,9 @@
     (message "no cask home directory specified")))
 
 (require 'cask)
-(cask-initialize)
+
+(when (featurep 'cask)
+  (cask-initialize))
 
 (provide 'cask-prt)
 ;;;; end of file

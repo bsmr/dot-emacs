@@ -2,9 +2,11 @@
 
 ;;;; emacs package handling
 (require 'package)
-(setq package-enable-at-startup nil)
-(package-initialize)
-(message "package setup done")
+
+(when (featurep 'package)
+  (setq package-enable-at-startup nil)
+  (package-initialize)
+  (message "finished package setup"))
 
 (provide 'package-prt)
 ;;;; end of file

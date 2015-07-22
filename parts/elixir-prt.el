@@ -5,10 +5,16 @@
 ;;;;  - alchemist  : https://github.com/tonini/alchemist.el
 
 (unless (package-installed-p 'elixir-mode)
-  (let ((emacs-mode-elixir-directory    (getenv "EMACS_MODE_ELIXIR_DIRECTORY")))
+  (let ((emacs-mode-elixir-directory (getenv "EMACS_MODE_ELIXIR_DIRECTORY")))
     (when (file-exists-p emacs-mode-elixir-directory)
       (add-to-list 'load-path emacs-mode-elixir-directory)
       (message "added elixir-mode source directory"))))
+
+(require 'elixir-mode)
+
+;; (if (featurep 'elixir-mode)
+;;     (message "elixir-mode is installed")
+;;   (message "elixir-mode is not installed"))
 
 (unless (package-installed-p 'alchemist)
   (let ((emacs-mode-alchemist-directory (getenv "EMACS_MODE_ALCHEMIST_DIRECTORY")))
@@ -16,16 +22,21 @@
       (add-to-list 'load-path emacs-mode-alchemist-directory)
       (message "added alchemist source directory"))))
 
-(require 'elixir-mode)
 (require 'alchemist)
 
-(when (package-installed-p 'elixir-mode)
+;; (if (featurep 'alchemist)
+;;     (message "alchemist is installed")
+;;   (message "alchemist is not installed"))
+
+(when (featurep 'elixir-mode)
+  (message "starting elixir-mode modifications...")
   (let ((elixir-exec-path (getenv "ELIXIR_EXEC_PATH")))
     (when (file-exists-p elixir-exec-path)
       (setq exec-path (cons elixir-exec-path exec-path))
       (message "finished elixir modifications"))))
       
-(when (package-installed-p 'alchemist)
+(when (featurep 'alchemist)
+  (message "starting alchemist modifications...")
   (let ((erlang-source-directory (getenv "ERLANG_SOURCE_DIRECTORY"))
 	(elixir-source-directory (getenv "ELIXIR_SOURCE_DIRECTORY")))
     (progn

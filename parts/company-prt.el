@@ -1,6 +1,6 @@
 ;;;; company-prt.el
 
-(when (package-installed-p 'company)
+(when (featurep 'company)
   (add-hook 'after-init-hook 'global-company-mode)
   (message "finished company mode modifications"))
 
