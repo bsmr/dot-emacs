@@ -1,5 +1,8 @@
-;;;; evil-prt.el
-;;;; add EVIL mode
+;;; evil-prt.el --- EVIL setup
+;;; Commentary:
+;;; add EVIL mode
+
+;;; Code:
 
 ;; (let ((emacs-mode-evil-directory (getenv "EMACS_MODE_EVIL_DIRECTORY")))
 ;;   (if (file-exists-p emacs-mode-evil-directory)
@@ -35,4 +38,4 @@
   (message "finished evil modifications"))
 
 (provide 'evil-prt)
-;;;; end of file
+;;; evil-prt.el ends here

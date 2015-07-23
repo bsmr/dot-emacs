@@ -1,5 +1,8 @@
-;;;; file: gitlab-prt.el
+;;; gitlab-prt.el --- gitlab API setup
+;;; Commentary:
+;;; Currently not used...
 
+;;; Code:
 (let ((env-gitlab-host     (getenv "PRIVATE_GITLAB_HOST"))
       (env-gitlab-username (getenv "PRIVATE_GITLAB_USERNAME"))
       (env-gitlab-password (getenv "PRIVATE_GITLAB_PASSWORD"))
@@ -15,4 +18,4 @@
     (message "finished gitlab setup done")))
 
 (provide 'gitlab-prt)
-;;;; end of file
+;;; gitlab-prt.el ends here

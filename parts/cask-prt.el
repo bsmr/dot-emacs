@@ -1,17 +1,18 @@
-;;;; cask-prt.el
-;;;; cask setup
+;;; cask-prt.el --- setup cask
+;;; Commentary:
+;;; cask setup
 
+;;; Code:
 (let ((emacs-mode-cask-directory (getenv "CASK_BASE_DIRECTORY")))
-  (if (and emacs-mode-cask-directory (file-exists-p emacs-mode-cask-directory))
-      (progn
-	(add-to-list 'load-path emacs-mode-cask-directory)
-	(message "cask is initialized"))
-    (message "no cask home directory specified")))
+  (when (and emacs-mode-cask-directory
+	     (file-exists-p emacs-mode-cask-directory))
+    (add-to-list 'load-path emacs-mode-cask-directory)))
 
 (require 'cask)
 
 (when (featurep 'cask)
-  (cask-initialize))
+  (cask-initialize)
+  (message "finished cask setup"))
 
 (provide 'cask-prt)
-;;;; end of file
+;;; cask-prt.el ends here

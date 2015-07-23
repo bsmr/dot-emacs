@@ -1,5 +1,8 @@
-;;;; customize-prt.el
+;;; customize-prt.el --- various emacs UI settings
+;;; Commentary:
+;;; TBD
 
+;;; Code:
 ;; replace highlighted text with what I type rather than just inserting at point
 (delete-selection-mode t)
 
@@ -34,4 +37,4 @@
  '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :weight normal :height 80 :width normal)))))
 
 (provide 'customize-prt)
-;;;; end of file
+;;; customize-prt.el ends here

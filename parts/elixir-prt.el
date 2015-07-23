@@ -1,9 +1,11 @@
-;;;; elixir-prt.el
-;;;; setup Elixir environment
-;;;; Github:
-;;;;  - elixir-mode: https://github.com/elixir-lang/emacs-elixir
-;;;;  - alchemist  : https://github.com/tonini/alchemist.el
+;;; elixir-prt.el --- setup elixir environment
+;;; Commentary:
+;;; setup Elixir environment
+;;; Github:
+;;;  - elixir-mode: https://github.com/elixir-lang/emacs-elixir
+;;;  - alchemist  : https://github.com/tonini/alchemist.el
 
+;;; Code:
 (unless (package-installed-p 'elixir-mode)
   (let ((emacs-mode-elixir-directory (getenv "EMACS_MODE_ELIXIR_DIRECTORY")))
     (when (file-exists-p emacs-mode-elixir-directory)
@@ -12,10 +14,6 @@
 
 (require 'elixir-mode)
 
-;; (if (featurep 'elixir-mode)
-;;     (message "elixir-mode is installed")
-;;   (message "elixir-mode is not installed"))
-
 (unless (package-installed-p 'alchemist)
   (let ((emacs-mode-alchemist-directory (getenv "EMACS_MODE_ALCHEMIST_DIRECTORY")))
     (when (file-exists-p emacs-mode-alchemist-directory)
@@ -23,10 +21,6 @@
       (message "added alchemist source directory"))))
 
 (require 'alchemist)
-
-;; (if (featurep 'alchemist)
-;;     (message "alchemist is installed")
-;;   (message "alchemist is not installed"))
 
 (when (featurep 'elixir-mode)
   (message "starting elixir-mode modifications...")
@@ -77,7 +71,27 @@
       ;; 	(add-hook 'erlang-mode-hook 'custom-erlang-mode-hook)
       ;; 	(message "added alchemist-erlang modifications"))
 
+      (when (featurep 'ruby-end-mode)
+	(add-to-list 'elixir-mode-hook
+		     (defun auto-activate-ruby-end-mode-for-elixir-mode ()
+		       (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
+			    "\\(?:^\\|\\s-+\\)\\(?:do\\)")
+		       (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
+		       (ruby-end-mode +1)))
+	(message "finished alchemist-ruby-end-mode modifications"))
+
+      (when (featurep 'smartparens)
+	(sp-with-modes '(elixir-mode)
+		       (sp-local-pair "fn" "end"
+				      :when '(("SPC" "RET"))
+				      :actions '(insert navigate))
+		       (sp-local-pair "do" "end"
+				      :when '(("SPC" "RET"))
+				      :post-handlers '(sp-ruby-def-post-handler)
+				      :actions '(insert navigate)))
+	(message "finished alchemist-smartparens modifications"))
+
       (message "finished alchemist modifications"))))
 
 (provide 'elixir-prt)
-;;;; end of file
+;;; elixir-prt.el ends here

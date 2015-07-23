@@ -1,5 +1,8 @@
-;;;; neotree-prt.el
+;;; neotree-prt.el --- neotree setup
+;;; Commentary:
+;;; TBD
 
+;;; Code:
 (unless (package-installed-p 'neotree)
   (let ((emacs-mode-neotree-directory (getenv "EMACS_MODE_NEOTREE_DIRECTORY")))
     (when (and emacs-mode-neotree-directory (file-exists-p emacs-mode-neotree-directory))
@@ -50,4 +53,4 @@
   (message "finished neotree modifications"))
 
 (provide 'neotree-prt)
-;;;; end of file
+;;; neotree-prt.el ends here

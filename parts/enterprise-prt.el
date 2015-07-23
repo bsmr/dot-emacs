@@ -1,5 +1,8 @@
-;;;; enterprise-prt.el
+;;; enterprise-prt.el --- an enterprise setup
+;;; Commentary:
+;;; TBD
 
+;;; Code:
 ;; replace highlighted text with what I type rather than just inserting at point
 (delete-selection-mode t)
 
@@ -26,4 +29,4 @@
 
 
 (provide 'enterprise-prt)
-;;;; end of file
+;;; enterprise-prt.el ends here

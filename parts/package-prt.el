@@ -1,4 +1,8 @@
-;;;; package-prt.el
+;;; package-prt.el --- emacs package setup
+;;; Commentary:
+;;; TBD
+
+;;; Code:
 
 ;;;; emacs package handling
 (require 'package)
@@ -9,4 +13,4 @@
   (message "finished package setup"))
 
 (provide 'package-prt)
-;;;; end of file
+;;; package-prt.el ends here

@@ -1,20 +1,30 @@
-;;;; ~/.emacs.d/init.el
+;;; init.el --- setup emacs
+;;; Commentary:
+;;; setup emacs
 
-;;;; add other parts
-(add-to-list 'load-path (expand-file-name "parts" user-emacs-directory))
+;;; Code:
 
-(require 'email-prt)
-(require 'package-prt)
-(require 'cask-prt)
-;;(require 'shell-prt)
-(require 'erlang-prt)
-(require 'elixir-prt)
-(require 'sbcl-prt)
-;;(require 'gitlab-prt)
-(require 'evil-prt)
-(require 'company-prt)
-(require 'neotree-prt)
-(require 'customize-prt)
+(let* ((user-parts-directory-name "parts")
+       (user-parts-directory
+	(expand-file-name user-parts-directory-name user-emacs-directory)))
+  (when (file-exists-p user-parts-directory)
+    (add-to-list 'load-path user-parts-directory)
+
+    (require 'email-prt)              ;; personal E-Mail setup
+    (require 'package-prt)            ;; support for emacs packages
+    (require 'cask-prt)               ;; cask additions
+    (require 'company-prt)            ;; needed by alchemist
+    (require 'smartparens-prt)        ;;
+    (require 'rainbow-delimiters-prt) ;; 
+    (require 'flycheck-prt)           ;; on the fly syntax checking
+    (require 'erlang-prt)             ;; Erlang/OTP support
+    (require 'elixir-prt)             ;; Elixir support
+    (require 'sbcl-prt)               ;; SBCL support
+    ;;(require 'evil-prt)             ;; VI mode
+    (require 'neotree-prt)            ;; project tree view
+    (require 'customize-prt)          ;; some basic emacs customizations
+
+    (message "finished user init setup")))
 
 (provide 'init)
-;;;; end of file
+;;; init.el ends here

@@ -1,5 +1,8 @@
-;;;; sbcl-prt.el
+;;; sbcl-prt.el --- Steel Banks Common Lisp setup
+;;; Commentary:
 ;;; The SBCL binary and command-line arguments
+
+;;; Code:
 
 (require 'slime)
 
@@ -11,4 +14,4 @@
   (message "finished slime/sbcl setup"))
 
 (provide 'sbcl-prt)
-;;;; end of file
+;;; sbcl-prt.el ends here

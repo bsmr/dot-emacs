@@ -1,6 +1,10 @@
-;;;; shell-prt.el
+;;; shell-prt.el --- shell-command setup
+;;; Commentary:
+;;; TBD
+
+;;; Code:
 
 (require 'shell-command)
 
 (provide 'shell-prt)
-;;;; end of file
+;;; shell-prt.el ends here

@@ -1,8 +1,12 @@
-;;;; company-prt.el
+;;; company-prt.el --- company setup
+;;; Commentary:
+;;; TBD
 
-(when (featurep 'company)
+;;; Code:
+
+(when (package-installed-p 'company)
   (add-hook 'after-init-hook 'global-company-mode)
-  (message "finished company mode modifications"))
+  (message "finished company setup"))
 
 (provide 'company-prt)
-;;;; end of file
+;;; company-prt.el ends here
