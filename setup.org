@@ -1,0 +1,345 @@
+#+TITLE: My personal GNU Emacs configuration
+#+AUTHOR: Boris Mühmer
+
+* Abstract
+
+  The is my personal GNU Emacs configuration, based on =org-mode= and =babel=.
+  The goal is to have a literate programming approach to the setup,
+  e.g. the documentation comes first.
+
+* General Information
+
+** =cask= is not used
+
+   Even if [[https://github.com/cask/cask][cask]] is a really /awesome/ package manager,
+   I will not use it, because of its ~Python~ dependency.
+
+* Setup
+
+  The setup consists of two parts:
+
+  1. Bootstrapping
+  2. Initialisation
+     
+  The bootstrapping is needed to tell Emacs how to load
+  its configuration from this file with the help of babel.
+  The initialisation does the real work.
+
+** Bootstrapping
+   
+   To get started, create the directory =~/.emacs.d= and move
+   =setup.org= into it. Nothing else should exists there.
+   After that open =setup.org= with =emacs= and use =C-c C-c=
+   to /execute/ it. This will generate the =init.el= file and
+   load all the enabled packages.
+
+** Initialisation
+
+   The initialisation has several sections.
+
+*** Create =init.el=
+    
+    To load =setup.org= Emacs must be told how to process it.
+    This must be called from =~/.emacs.d/init.el=.
+
+    /Notes:/
+    1. The file =init.el= should be as short as possible.
+    2. =setup.org= must not be compiled!
+
+    #+BEGIN_SRC emacs-lisp :tangle ~/.emacs.d/init.el
+      (org-babel-load-file "~/.emacs.d/setup.org")
+    #+END_SRC
+    
+*** Personal information
+
+    Tell Emacs more about me.
+
+    #+BEGIN_SRC emacs-lisp
+      (setq user-full-name "Boris Mühmer"
+            user-mail-address (or (getenv "USER_MAIL_ADDRESS")
+                                  "boris@muehmer.de"))
+    #+END_SRC
+
+*** Package setup
+
+    Setup the Emacs package (based on =package.el=) environment.
+
+    #+BEGIN_SRC emacs-lisp
+      ;; get rolling...
+      (require 'package)
+      ;; add repositories
+      (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
+      (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+      (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+      (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+      ;; we are done
+      (package-initialize)
+    #+END_SRC
+
+    Make sure that the following packages are installed (~Active~ is ~yes~):
+
+    #+TBLNAME: emacs-packages-table
+    | Active | Package             | Description                        |
+    |--------+---------------------+------------------------------------|
+    | no     | ack-and-a-half      |                                    |
+    | no     | auctex              |                                    |
+    | no     | clojure-mode        |                                    |
+    | no     | coffee-mode         |                                    |
+    | no     | deft                |                                    |
+    | yes    | evil                | the Extensible VI Layer            |
+    | no     | expand-region       |                                    |
+    | no     | gist                |                                    |
+    | no     | groovy-mode         |                                    |
+    | no     | haml-mode           |                                    |
+    | no     | haskell-mode        |                                    |
+    | no     | inf-ruby            |                                    |
+    | yes    | magit               | =git= management                   |
+    | no     | magithub            |                                    |
+    | no     | markdown-mode       |                                    |
+    | yes    | org                 | organise /everything/              |
+    | no     | paredit             |                                    |
+    | no     | projectile          |                                    |
+    | no     | python              |                                    |
+    | no     | sass-mode           |                                    |
+    | yes    | slime               | The Superior Lisp Interaction Mode |
+    | no     | rainbow-mode        |                                    |
+    | no     | scss-mode           |                                    |
+    | no     | solarized-theme     |                                    |
+    | no     | volatile-highlights |                                    |
+    | no     | yaml-mode           |                                    |
+    | no     | yari                |                                    |
+    | no     | zenburn-theme       |                                    |
+
+    #+BEGIN_SRC emacs-lisp :var emacs-packages=emacs-packages-table :results none
+      ;; fetch the list of packages available 
+      (unless package-archive-contents
+        (package-refresh-contents))
+
+      ;; install the missing packages
+      (defun process-package-row (row)
+        (when (and (sequencep row)
+                   (= 3 (length row)))
+          (let ((active (nth 0 row))
+                (package (intern (nth 1 row))))
+            (when (string= active "yes")
+              (unless (package-installed-p package)
+                (message "Package %s is missing!" package)
+                (package-install package)
+                (message "Installed package %s." package))))))
+
+      ;; scan table for packages to install
+      (message "Checking for missing packages...")
+      (dolist (row emacs-packages)
+        (process-package-row row))
+    #+END_SRC
+
+*** Change "yes or no" to "y or n"
+    
+    "yes" is too long... "y" should suffice.
+    
+    #+BEGIN_SRC emacs-lisp
+      (fset 'yes-or-no-p 'y-or-n-p)
+    #+END_SRC
+
+*** =org-mode=
+    
+    With =org-mode= you can organise everything,
+    even the Emacs setup.
+    
+    #+BEGIN_SRC emacs-lisp
+      (require 'org)
+
+      ;; some more org- stuff
+      (require 'org-install)
+      (require 'ob-sh)
+
+      ;; add dot
+      (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
+        
+      ;; Some initial langauges we want org-babel to support
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '((lisp . t)
+         (emacs-lisp . t)
+         (sh . t)
+         (python . t)
+         ;;(R . t)
+         (ruby . t)
+         ;;(ditaa . t)
+         (dot . t)
+         ;;(octave . t)
+         ;;(sqlite . t)
+         (perl . t)))
+
+      (defun my-org-confirm-babel-evaluate (lang body)
+        "Check language for confirmation."
+        (progn
+          (message (concat "ORG confirm babel evaluate: " lang))
+          (not (string= lang "dot"))))
+      (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+
+      ;; Add short cut keys for the org-agenda
+      ;; taken from: http://orgmode.org/manual/Activation.html
+      (global-set-key "\C-cl" 'org-store-link)
+      (global-set-key "\C-cc" 'org-capture)
+      (global-set-key "\C-ca" 'org-agenda)
+      (global-set-key "\C-cb" 'org-iswitchb)
+
+      ;; add some latex export bindings
+      (unless (boundp 'org-latex-classes)
+        (setq org-latex-classes nil))
+
+      ;; add koma support
+      (add-to-list 'org-latex-classes
+                   '("koma-article"
+                     "\\documentclass{scrartcl}"
+                     ("\\section{%s}" . "\\section*{%s}")
+                     ("\\subsection{%s}" . "\\subsection*{%s}")
+                     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                     ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                     ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+      (add-to-list 'org-latex-classes
+                   '("koma-book"
+                     "\\documentclass{scrbook}"
+                     ("\\part{%s}" . "\\part*{%s}")
+                     ("\\chapter{%s}" . "\\chapter*{%s}")
+                     ("\\section{%s}" . "\\section*{%s}")
+                     ("\\subsection{%s}" . "\\subsection*{%s}")
+                     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+
+      ;; TODO: check what this was needed for!!!
+      (eval-after-load "org"
+        '(require 'ox-md nil t))
+    #+END_SRC
+
+*** =evil= the Extensible VI Layer for Emacs
+
+    With =evil= You get super powers!
+
+    #+BEGIN_SRC emacs-lisp
+      (require 'evil)
+      (evil-mode 1)
+
+      ;;(global-evil-visualstar-mode 1)
+      ;;(setq evil-default-cursor t)
+      ;;(setq evil-default-state 'normal)
+      ;;(setq evil-auto-indent t)
+      ;;(setq evil-shift-width 2)
+      ;;(setq evil-search-wrap t)
+      ;;(setq evil-find-skip-newlines t)
+      ;;(setq evil-move-cursor-back nil)
+      ;;(setq evil-mode-line-format 'before)
+      ;;(setq evil-cross-lines t)
+
+      ;;(setq evil-overriding-maps nil)
+      ;;(setq evil-intercept-maps nil)
+
+      ;; Don't wait for any other keys after escape is pressed.
+      ;;(setq evil-esc-delay 0)
+    #+END_SRC
+
+*** =magit= - =git= handled by Emacs
+
+    With =magit= You can mange =git= without a command line.
+
+    No adustments right now.
+
+*** =SBCL= and Common Lisp
+
+    Configurations needed for =SBCL=.
+
+    #+BEGIN_SRC emacs-lisp :results none
+      ;; check for local slime setup
+      (unless (package-installed-p 'slime)
+        (let ((emacs-mode-slime-directory (getenv "EMACS_MODE_SLIME_DIRECTORY")))
+          (when (file-exists-p emacs-mode-slime-directory)
+            (add-to-list 'load-path emacs-mode-slime-directory)
+            (message "added slime source directory"))))
+
+      (setq slime-contribs '(slime-fancy))
+      (require 'slime)
+
+      (when (featurep 'slime)
+        (let ((sbcl-exec-binary (getenv "SBCL_EXEC_BINARY")))
+          (when (file-executable-p sbcl-exec-binary)
+            (setq inferior-lisp-program (concat sbcl-exec-binary " --noinform"))))
+        (message "finished slime/sbcl setup"))
+    #+END_SRC
+
+*** Various Emacs UI settings
+
+    Here are some customisations for the Emacs UI.
+    
+    #+BEGIN_SRC emacs-lisp :results none
+      ;; replace highlighted text with what I type rather than just inserting at point
+      (delete-selection-mode t)
+
+      ;; All settings clicked in the Options menu are saved here by Emacs.
+      (custom-set-variables
+       ;; custom-set-variables was added by Custom.
+       ;; If you edit it by hand, you could mess it up, so be careful.
+       ;; Your init file should contain only one such instance.
+       ;; If there is more than one, they won't work right.
+       '(inhibit-startup-screen t)
+       '(column-number-mode t)
+       '(mode-require-final-newline nil)
+       ;;'(display-battery-mode t)
+       '(display-time-24hr-format t)
+       '(display-time-day-and-date nil)
+       '(display-time-default-load-average nil)
+       '(display-time-mail-file (quote none))
+       '(display-time-mode t)
+       '(indicate-buffer-boundaries (quote ((t . right) (top . left))))
+       '(indicate-empty-lines t)
+       '(save-place t nil (saveplace))
+       '(scroll-bar-mode (quote right))
+       '(show-paren-mode t)
+       '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
+       '(tool-bar-mode nil)
+       '(uniquify-buffer-name-style (quote forward) nil (uniquify)))
+
+      (custom-set-faces
+       ;; custom-set-faces was added by Custom.
+       ;; If you edit it by hand, you could mess it up, so be careful.
+       ;; Your init file should contain only one such instance.
+       ;; If there is more than one, they won't work right.
+       '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :weight normal :height 120 :width normal)))))
+
+    #+END_SRC
+
+* Additional Information
+
+** /Package Management in Emacs: The Good, the Bad and the Ugly/
+
+   There is a very interesting BLOG article about Emacs package
+   management: [[http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/][Package Management in Emacs: The Good, the Bad and the Ugly]]
+
+** /Sacha Chua/'s BLOG
+
+   You should really have a look at the BLOG of [[http://sachachua.com/][Sacha Chua]]!
+   Basically she was responsible that I changed my old Emacs
+   setup to the /org-mode babel/ style. *Thank You!*
+
+** /What the .emacs.d!?/ BLOG
+
+   An awesome collection of Emacs setup information:
+   [[http://whattheemacsd.com/][What the .emacs.d!?]]
+
+** =org-mode= Links
+   
+   1. [[http://orgmode.org/][org-mode]] - main web site
+
+** =babel= for =org-mode= Links
+
+   1. [[http://orgmode.org/worg/org-contrib/babel/][Babel: active code in Org-mode]] - the =babel= contrib web site
+   2. [[http://orgmode.org/worg/org-contrib/babel/intro.html][Babel: Introduction]]
+
+** Unsorted Links for =org-mode= related information
+
+   1. [[http://orgmode.org/worg/org-tutorials/org-jekyll.html][Using org to Blog with Jekyll]]
+
+** =evil= Links
+
+   1. [[https://bitbucket.org/lyro/evil/wiki/Home][evil]] at [[https://bitbucket.org/][Bitbucket]]
+   2. [[http://www.emacswiki.org/emacs/Evil][evil]] at [[http://www.emacswiki.org/][Emacs Wiki]]

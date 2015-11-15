@@ -1,6 +1,13 @@
+# special stuff (all are generated)
+#init.el
+setup.el
+setup.elc
+
+# the default stuff
 *~
 \#*
 ac-comphist.dat
+ac-dict
 auto-save-list
 backup
 backup.*
@@ -25,3 +32,4 @@ tramp
 url
 var
 vendor
+*.log
